@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from './../auth/Auth';
-import FileUploader from '.././dashboard/components/FileUploader';
+import FileUploader from './../dashboard/components/FileUploader';
 import AudioUploader from './../dashboard/components/AudioUploader';
 import ImageUploader from './../dashboard/components/ImageUploader';
 
