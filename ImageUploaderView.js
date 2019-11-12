@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Auth from './../auth/Auth';
-import FileUploader  from './../fileshandler/client/components/FileUploader';
-import AudioUploader from './../fileshandler/client/components/AudioUploader';
+
 import ImageUploader from './../fileshandler/client/components/ImageUploader';
 
 export default class FileUploaderView extends Component {
@@ -46,26 +45,6 @@ export default class FileUploaderView extends Component {
         return (
 
             <div>
-                <br /><br /><br />
-                <div>UPLOAD FILE --> pdf, doc, docx</div>
-                <FileUploader
-                    category='uploaded_files' // file is saved into public/files/[category]
-                    name='fileSampleId' // [FILE_NAME_LIKE_IN_DATABASE]
-                    required={true}
-                    onChange={this.handleFileChange}
-                    label='קורות חיים'
-                />
-
-                <br /><br /><br />
-                <div>UPLOAD AUDIO --> mp3, wav</div>
-                <AudioUploader
-                    category='uploaded_audio' // audio is saved into public/files/[category]
-                    name='audioSampleId' // [AUDIO_NAME_LIKE_IN_DATABASE]
-                    required={false}
-                    onChange={this.handleFileChange}
-                    label='Choose ur favorite song'
-                />
-
                 <br /><br /><br />
                 <div>UPLOAD IMAGE --> .png, .jpg, .jpeg, .gif</div>
                 <ImageUploader
