@@ -5,8 +5,8 @@ import AudioUploader from '../fileshandler/client/components/AudioUploader';
 import ImageUploader from '../fileshandler/client/components/ImageUploader';
 import { renderToString } from 'react-dom/server'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
-import screenImg from "../fileshandler/imgs/screenShotImages.png"
-import screenfile from "../fileshandler/imgs/fileUploadScreem.png"
+import screenImg from "./screenShotImages.png"
+import screenfile from "./fileUploadScreem.png"
 
 //import './sample.scss'
 // import jsxToString from 'jsx-to-string';
