@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import Auth from './../auth/Auth';
-
+import Styles from './Samples.scss';
 import ImageUploader from './../fileshandler/client/components/ImageUploader';
+
+const UploadedImage=(props)=>{
+    return(
+        <div className='figure-container'>
+            <figure className='uploaded-figure'>
+                <img src={props.path} alt={props.title} title={props.title} />
+                <figcaption>{props.description}</figcaption>
+            </figure>
+        </div>
+    );
+}
+
 
 export default class FileUploaderView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {uploadedImage:null};
     }
 
     handleFileChange = (fileEvent) => {
@@ -29,16 +41,31 @@ export default class FileUploaderView extends Component {
         return fieldsToSaveObj;
     }
 
-    upload = () => {
+    upload = async () => {
         let filesData = this.getFilesData();
 
         console.log("about to upload files YAYYYAY:)", filesData)
-        Auth.superAuthFetch('/api/Files', {
+        await Auth.superAuthFetch('/api/Files', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify(filesData)
-        })
+        });
+
+
+        
+        let filter="filter[order]=id DESC&filter[limit]=1";
+        let [res,err]= await Auth.superAuthFetch('/api/Images?'+filter);
+
+        console.log("RES?",res);
+        this.setState({uploadedImage:res[0]});
+
+
+
     };
+
+
+    
+
 
 
     render() {
@@ -58,6 +85,9 @@ export default class FileUploaderView extends Component {
 
 
                 <button onClick={this.upload}>SUBMIT FILES</button>
+
+                {this.state.uploadedImage && <UploadedImage {...this.state.uploadedImage} />}
+                
             </div>
         );
     }
