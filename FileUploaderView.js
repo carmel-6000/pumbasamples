@@ -4,7 +4,7 @@ import FileUploader from '../fileshandler/client/components/FileUploader';
 import AudioUploader from '../fileshandler/client/components/AudioUploader';
 import ImageUploader from '../fileshandler/client/components/ImageUploader';
 import { renderToString } from 'react-dom/server'
-import { UnControlled as CodeMirror } from 'react-codemirror2'
+//import { UnControlled as CodeMirror } from 'react-codemirror2'
 import screenImg from "./screenShotImages.png"
 import screenfile from "./fileUploadScreem.png"
 
@@ -346,7 +346,7 @@ export default class FileUploaderView extends Component {
 
 
 // import React, { Component } from 'react';
-// import Auth from './../auth/Auth';
+// import Auth from './../aut``h/Auth';
 // import FileUploader  from './../fileshandler/client/components/FileUploader';
 // import AudioUploader from './../fileshandler/client/components/AudioUploader';
 // import ImageUploader from './../fileshandler/client/components/ImageUploader';
