@@ -7,26 +7,41 @@ export default class LoginAsView extends Component {
     constructor(props) {
         super(props);
 
+        this.state={users:[]};
+
+    }
+
+    componentDidMount(){
+        this.getUsersList();
+    }
+
+    getUsersList=()=>{
+
+        (async()=>{
+
+            let [res,err]=await Auth.superFetch('/api/CustomUsers');
+            
+            console.log("Users list",res);
+            console.log("Users list err",err);
+            if (res!==null){
+                this.setState({users:res});    
+            }
+            
+
+        })();
+
     }
 
     loginAs=()=>{
         
         (async()=>{
 
-            /*
-            let [at,err]=await Auth.superAuthFetch('/api/CustomUsers/login-as', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify({uid:3})
-            });
-
-            console.log("response err",err);
-            console.log("response access token",at);
-
-            */
-
+            
             let res=await Auth.loginAs(3);
             console.log("RES?",res);
+            if (res.success==true){
+                alert("User has changed to user id (%d)",3)
+            }
             //window.location.reload();
 
         })();
@@ -40,12 +55,12 @@ export default class LoginAsView extends Component {
 
             <div> <br /> <h2>Login as another user</h2>
                 
-                <div>User id : 3</div>
+                <ul>
+                    {this.state.users.map(u=><li><input type='checkbox' />{u.id}. {u.username}</li>)}
+                </ul>
 
                 <button onClick={this.loginAs}>Login as this user</button>
 
-                
-                
             </div>
         );
     }

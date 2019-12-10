@@ -1,0 +1,69 @@
+~~~ Changelog for Pumba 2.1.2 ~~~
+
+
+1. Bug: Inside RoleMapping, instead of using "ROLE" as principalType, it should be "User" (thanks to Tom)
+
+2. New models: RecordsPermissions (CREATE command is below)
+
+3. Module loader
+  * Add this line to server/server.js, first line!
+  require('../scripts/prebuild');
+
+  * Add the file modules-loader.js to /server/boot
+
+  It will auto load all modules into the system, including new models!!
+
+4. Password Reset (Thanks to Reut!)
+  * Add this line to App.js: 
+  <Route path="/reset-password" component={ResetPassword}/>
+  Make sure you use a valid gmail for nodemailer 
+  in datasources.json: 
+  myEmailDataSource:{
+  ....
+  "auth": {
+          "user": "carmel6000dev@gmail.com",
+          "pass": "uhWFoFK$97r"
+        }
+  ....
+  }
+  This is only for dev, in prod env we use sendgrid, with a different datasources.production.json file!
+
+ 5. FilesHandler - How to apply Permissions on files
+
+ 6. LoginAs - see Samples
+
+-------------------------------------------------------------------------------------
+
+Instructions for required updated:
+
+CustomUser.json
+
+* Add this line to properties:
+
+  "properties": {
+
+    "mainImageId":"number"
+
+  }
+
+* Add this to "relations"
+
+"relations":{
+	"mainImage":{
+	        "type":"belongsTo",
+	        "model":"Images",
+	        "foreignKey":"mainImageId"
+	    }
+}
+
+-------------- SQL ALTERS -------------------------
+
+CREATE TABLE `records_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model` varchar(100) DEFAULT NULL,
+  `recordId` int(11) unsigned DEFAULT NULL,
+  `principalType` enum('$OWNER','ROLE','USER') DEFAULT NULL,
+  `principalId` varchar(100) DEFAULT NULL,
+  `permission` enum('ALLOW','DENY') DEFAULT 'DENY',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
