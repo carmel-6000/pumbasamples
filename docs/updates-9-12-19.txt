@@ -1,6 +1,5 @@
 ~~~ Changelog for Pumba 2.1.2 ~~~
 
-
 1. Bug: Inside RoleMapping, instead of using "ROLE" as principalType, it should be "User" (thanks to Tom)
 
 2. New models: RecordsPermissions (CREATE command is below)

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import FileUploaderView from './FileUploaderView';
 import ImageUploaderView from './ImageUploaderView';
 import LoginAsView from './LoginAsView';
+import Login from "../auth/Login";
 
 class Samples extends Component {
     render() {
@@ -14,8 +15,7 @@ class Samples extends Component {
                     <li><a href='/samples/file-uploader'>File Uploader, Image Uploader, Audio Uploader</a></li>
                     <li><a href='/samples/image-uploader'>Image Uploader</a></li>
                     <li><a href='/samples/login-as'>Login as another user</a></li>
-                
-
+                    <li><a href='/samples/login'>Login (Login, reset password, registration (not ready yet)</a></li>
                 </ul>
                 <Router basename="samples">
                     
@@ -23,6 +23,7 @@ class Samples extends Component {
                         <Route path='/file-uploader' component={FileUploaderView} />
                         <Route path='/image-uploader' component={ImageUploaderView} />
                         <Route path='/login-as' component={LoginAsView} />
+                        <Route path='/login' component={Login} />
                         <Redirect to="/" />
                     </Switch>
                 </Router>

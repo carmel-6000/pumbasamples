@@ -94,6 +94,6 @@ Now check what id is the new user
 mysql>select * from CustomUser order by id desc limit 1;
 
 Now put the NEW_USER_ID here: 
-insert into RoleMapping(principalType,principalId,roleId) values('ROLE',NEW_USER_ID,1);  /*1 Stands for Role number 1 which is SIMPLEUSER*/
+insert into RoleMapping(principalType,principalId,roleId) values('User',NEW_USER_ID,1);  /*1 Stands for Role number 1 which is SIMPLEUSER*/
 
 
