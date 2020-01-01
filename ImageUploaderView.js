@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from './../auth/Auth';
-import Styles from './Samples.scss';
+import './Samples.scss';
 import ImageUploader from './../fileshandler/client/components/ImageUploader';
 
 const UploadedImage=(props)=>{
@@ -19,15 +19,15 @@ export default class FileUploaderView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {uploadedImage:null};
+        this.state = {uploadedImage:null, isDisabled: true};
     }
 
     handleFileChange = (fileEvent) => {
         let name = (fileEvent.target && fileEvent.target.name) || null;
         let value = (fileEvent.target && fileEvent.target.value) || null;
-        if (name && value) {
-            this.setState({ [name]: value });
-        }
+        let isDisabled = true;
+        if (isDisabled && value) isDisabled = false;
+        this.setState({ [name]: value, isDisabled });
     }
 
     getFilesData = () => {
@@ -81,11 +81,10 @@ export default class FileUploaderView extends Component {
                     required={false}
                     onChange={this.handleFileChange}
                     label='Show us your dog'
-                    // defaultThumbnailImageSrc=[PATH_TO_YOUR_DEFAULT_IMAGE]//a path in public, example:'/images/mydefaultimg.png'
                 />
 
 
-                <button onClick={this.upload}>SUBMIT FILES</button>
+                <button onClick={this.upload} disabled={this.state.isDisabled}>SUBMIT FILES</button>
 
                 {this.state.uploadedImage && <UploadedImage {...this.state.uploadedImage} />}
                 
