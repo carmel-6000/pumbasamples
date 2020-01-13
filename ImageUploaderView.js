@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Auth from './../auth/Auth';
-import './Samples.scss';
 import ImageUploader from './../fileshandler/client/components/ImageUploader';
+import PreviewWidget from './../fileshandler/client/components/PreviewWidget';
+import { PreviewWidgetExtension } from './../fileshandler/client/components/PreviewWidget';
+import './ImageUploaderView.scss';
+import './Samples.scss';
 
-const UploadedImage=(props)=>{
-    return(
+const UploadedImage = (props) => {
+    return (
         <div className='figure-container'>
-            <figure className='uploaded-figure'>
+            <figure>
                 <img src={props.path} alt={props.title} title={props.title} />
                 <figcaption>{props.description}</figcaption>
             </figure>
@@ -14,12 +17,11 @@ const UploadedImage=(props)=>{
     );
 }
 
-
-export default class FileUploaderView extends Component {
+export default class ImageUploaderView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {uploadedImage:null, isDisabled: true};
+        this.state = { uploadedImage: null, isDisabled: true };
     }
 
     handleFileChange = (fileEvent) => {
@@ -31,7 +33,7 @@ export default class FileUploaderView extends Component {
     }
 
     getFilesData = () => {
-        const fieldsToSave = ['fileSampleId', 'audioSampleId', 'imageSampleId'];
+        const fieldsToSave = ['imageSample1', 'imageSample2', 'imageSample3', 'imageSample4'];
 
         let fieldsToSaveObj = {};
         for (let field of fieldsToSave) {
@@ -44,52 +46,67 @@ export default class FileUploaderView extends Component {
     upload = async () => {
         let filesData = this.getFilesData();
 
-        console.log("about to upload files YAYYYAY:)", filesData)
-        await Auth.superAuthFetch('/api/Files', {
+        console.log("about to upload files", filesData)
+        let [r, e] = await Auth.superAuthFetch('/api/Files', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify(filesData)
         });
 
+        console.log("r", r)
 
-        
-        let filter="filter[order]=id DESC&filter[limit]=1";
-        let [res,err]= await Auth.superAuthFetch('/api/Images?'+filter);
+        let filter = "filter[order]=id DESC&filter[limit]=1";
+        let [res, err] = await Auth.superAuthFetch('/api/Images?' + filter);
 
-        console.log("RES?",res);
-        this.setState({uploadedImage:res[0]});
+        if (err) return console.log("ERR:", err);
 
+        console.log("res", res);
 
-
+        this.setState({ uploadedImage: res[0] });
     };
-
-
-    
-
-
 
     render() {
         return (
+            <div className="image-uploader-sample">
 
-            <div>
-                <br /><br /><br />
-                <div>UPLOAD IMAGE --> .png, .jpg, .jpeg, .gif</div>
-                
+                <h1>Image Uploader</h1>
+                <p>There are a few default styles you can easly implement by adding props</p>
+
+                <div className="image-input-sample">
+                    <p>This is the default design</p>
+                    <ImageUploader
+                        category="my-images" // image is saved into public/images/[category]
+                        name="imageSample1"
+                        title="my-image"
+                        onChange={this.handleFileChange} />
+                </div>
+
                 <ImageUploader
-                    category='uploaded_images' // image is saved into public/images/[category]
-                    name='imageSampleId' // [IMAGE_NAME_LIKE_IN_DATABASE]
-                    required={false}
-                    onChange={this.handleFileChange}
-                    label='Show us your dog'
-                />
+                    category="my-images" // image is saved into public/images/[category]
+                    name="imageSample2"
+                    title="my-image"
+                    theme="circle-theme"
+                    onChange={this.handleFileChange} />
 
+                <ImageUploader
+                    category="my-images" // image is saved into public/images/[category]
+                    name="imageSample3"
+                    title="my-image"
+                    previewWidget={<PreviewWidget enableEdit={true} enableDelete={true} />}
+                    onChange={this.handleFileChange} />
 
-                <button onClick={this.upload} disabled={this.state.isDisabled}>SUBMIT FILES</button>
+                <ImageUploader
+                    category="my-images" // image is saved into public/images/[category]
+                    name="imageSample4"
+                    title="my-image"
+                    theme="circle-theme"
+                    previewWidget={<PreviewWidget enableEdit={true} enableDelete={true} />}
+                    onChange={this.handleFileChange} />
+
+                <button onClick={this.upload} disabled={this.state.isDisabled}>Submit</button>
 
                 {this.state.uploadedImage && <UploadedImage {...this.state.uploadedImage} />}
-                
             </div>
         );
     }
 }
-
