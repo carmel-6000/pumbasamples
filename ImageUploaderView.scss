@@ -1,10 +1,33 @@
-p {
+.image-uploader-sample {
+  direction: ltr;
+
+  .image-input-samples {
+    display: flex;
+    justify-content: center;
+  }
+
+  p {
     font-size: 1.5em;
     padding-left: 1em;
     padding-right: 1em;
-}
+  }
 
-.image-input-sample {
+  .explanation {
+      text-align: left;
+  }
+
+  em {
+    background-color: lightgray;
+  }
+
+  .image-input-sample {
     border: 3px black solid;
-    width: fit-content;
+    width: 30%;
+    margin: 2em;
+    margin-top: 1em;
+  }
+
+  button {
+      margin-bottom: 2em;
+  }
 }
