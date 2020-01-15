@@ -72,15 +72,27 @@ export default class ImageUploaderView extends Component {
                 <p><strong>Note:</strong> When using multiple ImageUploader's,
                 make sure to give each one a unique <em>name</em> prop.</p>
 
-                <p className="explanation">There are a few default styles you can easly implement by adding props</p>
+                <p className="explanation">There are a few basic styles you can easly implement by adding props.</p>
 
                 <div className="image-input-samples">
-                    <div className="image-input-sample">
-                        <p>This is the default style. No extra props are required.</p>
+
+                <div className="image-input-sample">
+                        <p>This is the default-theme style. No theme prop is required.</p>
                         <ImageUploader
                             category="my-images" // image is saved into public/images/[category]
                             name="imageSample1"
                             title="my-image"
+                            onChange={this.handleFileChange}
+                        />
+                    </div>
+
+                    <div className="image-input-sample">
+                        <p>This is the basic-theme style. You can achieve it by adding <em>theme="basic-theme"</em> as a prop.</p>
+                        <ImageUploader
+                            category="my-images" // image is saved into public/images/[category]
+                            name="imageSample1"
+                            title="my-image"
+                            theme="basic-theme"
                             onChange={this.handleFileChange}
                         />
                     </div>
@@ -111,6 +123,7 @@ export default class ImageUploaderView extends Component {
                             category="my-images" // image is saved into public/images/[category]
                             name="imageSample3"
                             title="my-image"
+                            theme="basic-theme"
                             previewWidget={<PreviewWidget />}
                             onChange={this.handleFileChange}
                         />
