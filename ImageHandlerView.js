@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import Auth from './../auth/Auth';
-import ImageUploader from './../fileshandler/client/components/ImageUploader';
-import PreviewWidget from './../fileshandler/client/components/PreviewWidget';
-import './ImageUploaderView.scss';
-import './Samples.scss';
+import Auth from '../auth/Auth';
+import ImageHandler from '../fileshandler/client/components/image-handler/ImageHandler';
+import PreviewWidget from '../fileshandler/client/components/PreviewWidget';
+import './ImageHandlerView.scss';
 
-const UploadedImage = (props) => {
-    return (
-        <div className='figure-container'>
-            <figure>
-                <img src={props.path} alt={props.title} title={props.title} />
-                <figcaption>{props.description}</figcaption>
-            </figure>
-        </div>
-    );
-}
+// const UploadedImage = (props) => {
+//     return (
+//         <div className='figure-container'>
+//             <figure>
+//                 <img src={props.path} alt={props.title} title={props.title} />
+//                 <figcaption>{props.description}</figcaption>
+//             </figure>
+//         </div>
+//     );
+// }
 
-export default class ImageUploaderView extends Component {
+export default class ImageHandlerView extends Component {
 
     constructor(props) {
         super(props);
@@ -32,7 +31,7 @@ export default class ImageUploaderView extends Component {
     }
 
     getFilesData = () => {
-        const fieldsToSave = ['imageSample1', 'imageSample2', 'imageSample3', 'imageSample4'];
+        const fieldsToSave = ['imageSample1', 'imageSample2', 'imageSample3', 'imageSample4', 'imageSample5', 'imageSample6'];
 
         let fieldsToSaveObj = {};
         for (let field of fieldsToSave) {
@@ -66,9 +65,9 @@ export default class ImageUploaderView extends Component {
 
     render() {
         return (
-            <div className="image-uploader-sample">
+            <div className="image-handler-sample">
 
-                <h1>Image Uploader</h1>
+                <h1>Image Handler</h1>
                 <p><strong>Note:</strong> When using multiple ImageUploader's,
                 make sure to give each one a unique <em>name</em> prop.</p>
 
@@ -76,9 +75,9 @@ export default class ImageUploaderView extends Component {
 
                 <div className="image-input-samples">
 
-                <div className="image-input-sample">
-                        <p>This is the default-theme style. No theme prop is required.</p>
-                        <ImageUploader
+                    <div className="image-input-sample">
+                        <p>This is the default-theme style. No <em>theme</em> prop is required.</p>
+                        <ImageHandler
                             category="my-images" // image is saved into public/images/[category]
                             name="imageSample1"
                             title="my-image"
@@ -88,9 +87,9 @@ export default class ImageUploaderView extends Component {
 
                     <div className="image-input-sample">
                         <p>This is the basic-theme style. You can achieve it by adding <em>theme="basic-theme"</em> as a prop.</p>
-                        <ImageUploader
+                        <ImageHandler
                             category="my-images" // image is saved into public/images/[category]
-                            name="imageSample1"
+                            name="imageSample2"
                             title="my-image"
                             theme="basic-theme"
                             onChange={this.handleFileChange}
@@ -99,9 +98,9 @@ export default class ImageUploaderView extends Component {
 
                     <div className="image-input-sample">
                         <p>This is the circle-theme style. You can achieve it by adding <em>theme="circle-theme"</em> as a prop.</p>
-                        <ImageUploader
+                        <ImageHandler
                             category="my-images" // image is saved into public/images/[category]
-                            name="imageSample2"
+                            name="imageSample3"
                             title="my-image"
                             theme="circle-theme"
                             onChange={this.handleFileChange}
@@ -117,24 +116,37 @@ export default class ImageUploaderView extends Component {
                     The default previewWidget component can be easly replaced by costume previewWidget component which extends the original.</p>
 
                 <div className="image-input-samples">
+
                     <div className="image-input-sample">
-                        <p>This is previewWidget with the default style.</p>
-                        <ImageUploader
+                        <p>This is previewWidget with the default-theme style.</p>
+                        <ImageHandler
                             category="my-images" // image is saved into public/images/[category]
-                            name="imageSample3"
+                            name="imageSample4"
                             title="my-image"
-                            theme="basic-theme"
                             previewWidget={<PreviewWidget />}
                             onChange={this.handleFileChange}
                         />
                     </div>
 
                     <div className="image-input-sample">
-                        <p>This is previewWidget with the circle-theme style.
-                        <em>enableEdit</em> and <em>enableDelete</em> props are enabled.</p>
-                        <ImageUploader
+                        <p>This is previewWidget with the basic-theme style.<br/>
+                            Only <em>enableEdit</em> is enabled.</p>
+                        <ImageHandler
                             category="my-images" // image is saved into public/images/[category]
-                            name="imageSample4"
+                            name="imageSample5"
+                            title="my-image"
+                            theme="basic-theme"
+                            previewWidget={<PreviewWidget enableEdit={true} />}
+                            onChange={this.handleFileChange}
+                        />
+                    </div>
+
+                    <div className="image-input-sample">
+                        <p>This is previewWidget with the circle-theme style.<br />
+                            <em>enableEdit</em> and <em>enableDelete</em> props are enabled.</p>
+                        <ImageHandler
+                            category="my-images" // image is saved into public/images/[category]
+                            name="imageSample6"
                             title="my-image"
                             theme="circle-theme"
                             previewWidget={<PreviewWidget enableEdit={true} enableDelete={true} />}
@@ -143,7 +155,7 @@ export default class ImageUploaderView extends Component {
                     </div>
                 </div>
 
-                <button onClick={this.upload} disabled={this.state.isDisabled}>Submit</button>
+                {/* <button onClick={this.upload} disabled={this.state.isDisabled}>Submit</button> */}
 
                 {/* {this.state.uploadedImage && <UploadedImage {...this.state.uploadedImage} />} */}
             </div>
