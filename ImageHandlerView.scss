@@ -27,6 +27,18 @@
     margin-top: 1em;
   }
 
+  .uploaded-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .figure-container img {
+    height: 15%;
+    margin: 2em;
+    margin-top: 1em;
+  }
+
   button {
       margin-bottom: 2em;
   }
