@@ -7,7 +7,7 @@ import './ImageHandlerView.scss';
 
 const UploadedImage = (props) => {
     return (
-        <div className='figure-container' key={props.name}>
+        <div className='figure-container'>
             <figure>
                 <img src={props.path} alt={props.title} title={props.title} />
                 <figcaption>{props.description}</figcaption>
@@ -46,6 +46,9 @@ export default class ImageHandlerView extends Component {
     }
 
     upload = async () => {
+
+        this.setState({ isSubmitDisabled: true });
+
         let filesData = this.getFilesData();
         console.log("about to upload files", filesData);
 
@@ -174,7 +177,7 @@ export default class ImageHandlerView extends Component {
                 {!isSubmited ?
                     <button onClick={this.upload} disabled={this.state.isSubmitDisabled}>Submit</button> :
                     <div className="uploaded-images">
-                        {this.state.uploadedImages.map(uploadedImage => <UploadedImage {...uploadedImage} />)}
+                        {this.state.uploadedImages.map(uploadedImage => <UploadedImage key={uploadedImage.name} {...uploadedImage} />)}
                     </div>}
             </div>
         );
