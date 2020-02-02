@@ -6,6 +6,7 @@ import ImageHandlerView from './ImageHandlerView';
 import CreateGame from './create-game/CreateGame';
 import LoginAsView from './LoginAsView';
 import Login from "../auth/Login";
+import PasswordInputView from "./PasswordInputView"
 
 class Samples extends Component {
     render() {
@@ -18,6 +19,8 @@ class Samples extends Component {
                     <li><a href='/samples/create-game'>Upload image to relative model (by creating a new game)</a></li>
                     <li><a href='/samples/login-as'>Login as another user</a></li>
                     <li><a href='/samples/login'>Login (Login, reset password, registration (not ready yet)</a></li>
+                    <li><a href='/samples/password-input'>password Input and verify</a></li>
+
                 </ul>
 
                 <Router basename="samples">
@@ -27,6 +30,8 @@ class Samples extends Component {
                         <Route path='/create-game' component={CreateGame} />
                         <Route path='/login-as' component={LoginAsView} />
                         <Route path='/login' component={Login} />
+                        <Route path='/password-input' component={PasswordInputView} />
+
                         <Redirect to="/" />
                     </Switch>
                 </Router>
