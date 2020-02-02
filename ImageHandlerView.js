@@ -177,7 +177,10 @@ export default class ImageHandlerView extends Component {
                 {!isSubmited ?
                     <button onClick={this.upload} disabled={this.state.isSubmitDisabled}>Submit</button> :
                     <div className="uploaded-images">
-                        {this.state.uploadedImages.map(uploadedImage => <UploadedImage key={uploadedImage.name} {...uploadedImage} />)}
+                        {this.state.uploadedImages.map((uploadedImage, i) =>
+                            <div key={i}>
+                                <UploadedImage {...uploadedImage} />
+                            </div>)}
                     </div>}
             </div>
         );

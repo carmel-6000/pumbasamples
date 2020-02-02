@@ -19,7 +19,7 @@ export default class CreateGame extends Component {
     }
 
     getGameData = () => {
-        const fieldsToSave = ["title", "description", "schoolName","imgId"];
+        const fieldsToSave = ["title", "description", "schoolName", "imgId"];
 
         let fieldsToSaveObj = {};
         for (let field of fieldsToSave) {
@@ -36,7 +36,7 @@ export default class CreateGame extends Component {
         let [res, err] = await Auth.superAuthFetch('/api/Games/createNewGame', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({newGameData: newGame})
+            body: JSON.stringify({ newGameData: newGame })
         });
 
         if (err) return console.log("ERR:", err);
@@ -47,8 +47,6 @@ export default class CreateGame extends Component {
     previewImg = async () => {
         let filter = "filter[order]=id DESC&filter[limit]=1";
         let [res, err] = await Auth.superAuthFetch('/api/Images?' + filter);
-
-        console.log([res, err]);
 
         if (err) return console.log("ERR:", err);
 
@@ -118,7 +116,7 @@ const UploadedImage = (props) => {
     return (
         <div className='uploaded-image'>
             <div>
-                <img src={props.path} alt={props.title} title={props.title}/>
+                <img src={props.path} alt={props.title} title={props.title} />
                 <label>{props.description}</label>
             </div>
         </div>
