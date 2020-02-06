@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import Auth from '../../auth/Auth';
-import ImageUploader from '../../fileshandler/client/components/ImageUploader';
+import ImageHandler from '../../fileshandler/client/components/image-handler/ImageHandler';
+import MultiImagesHandler from '../../fileshandler/client/components/multi-images-handler/MultiImagesHandler';
 import './CreateGame.scss';
 
 export default class CreateGame extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { uploadedImage: null };
+        this.state = {
+            uploadedImages: null,
+            isSubmitDisabled: true,
+            isInputDisabled: false
+        };
     }
 
-    onInputChange = (inputEvent) => {
-        let name = (inputEvent.target && inputEvent.target.name) || null;
-        let value = (inputEvent.target && inputEvent.target.value) || null;
-        if (name && value) {
-            this.setState({ [name]: value });
-        }
+    onInputChange = (fileEvent) => {
+        let name = (fileEvent.target && fileEvent.target.name) || null;
+        let value = (fileEvent.target && fileEvent.target.value) || null;
+        let isSubmitDisabled = true;
+        if (isSubmitDisabled && value) isSubmitDisabled = false;
+        this.setState({ [name]: value, isSubmitDisabled });
     }
 
     getGameData = () => {
-        const fieldsToSave = ["title", "description", "schoolName", "imgId"];
+        const fieldsToSave = ["title", "description", "imgId", "imageId"];
 
         let fieldsToSaveObj = {};
         for (let field of fieldsToSave) {
@@ -30,6 +35,7 @@ export default class CreateGame extends Component {
     }
 
     createGame = async () => {
+        this.setState({ isSubmitDisabled: true, isInputDisabled: true });
 
         let newGame = this.getGameData();
 
@@ -55,59 +61,65 @@ export default class CreateGame extends Component {
 
     render() {
         return (
-            <div dir="ltr">
-                <div>
-                    Creates a new game and uploads an image through Games model.
-                    <br />
-                    Supported image format: .png, .jpg, .jpeg, .gif
-                </div>
-
-                <br />
+            <div className="create-game-sample">
 
                 <h2>Create a new game</h2>
 
                 <div className="form">
-                    <div className="field">
-                        <label>Title:</label>
-                        <input
-                            onChange={this.onInputChange}
-                            name="title"
-                            // required={true}
-                            type="text" />
+                    <div className="row">
+                        <div className="col">
+                            <div className="field">
+                                <label>Title:</label>
+                                <input
+                                    onChange={this.onInputChange}
+                                    name="title"
+                                    type="text"
+                                    disabled={this.state.isInputDisabled}
+                                />
+                            </div>
+
+                            <div className="field">
+                                <label>Description:</label>
+                                <textarea
+                                    onChange={this.onInputChange}
+                                    name="description"
+                                    disabled={this.state.isInputDisabled}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <ImageHandler
+                                category="games-cover-images" // image is saved into public/images/[category]
+                                name="imgId"
+                                title="cover-image"
+                                theme="basic-theme"
+                                label="Choose a cover image"
+                                onChange={this.onInputChange}
+                                disabled={this.state.isInputDisabled}
+                            />
+                        </div>
                     </div>
 
-                    <div className="field">
-                        <label>Description:</label>
-                        <textarea
-                            onChange={this.onInputChange}
-                            name="description"
-                            // required={false}
-                            rows="5"
-                            cols="23"
-                        />
-                    </div>
-
-                    <div className="field">
-                        <label>School Name:</label>
-                        <input
-                            onChange={this.onInputChange}
-                            name="schoolName"
-                            // required={true}
-                            type="text" />
-                    </div>
-
-                    <ImageUploader
-                        category='uploaded_images' // image is saved into public/images/[category]
-                        name='imgId' // [IMAGE_NAME_LIKE_IN_DATABASE]
-                        required={false}
+                    <MultiImagesHandler
+                        name="imageId" // keyToSaveImgId
+                        title="my-images"
+                        category="games-images"
+                        label="Drop images of the game's process"
                         onChange={this.onInputChange}
-                        label='Upload an image' />
+                        disabled={this.state.isInputDisabled}
+                    />
                 </div>
 
-                <button onClick={this.createGame}>Submit</button>
+                <button onClick={this.createGame} disabled={this.state.isSubmitDisabled}>Submit</button>
+
+                <p className="explanation">
+                    <strong>Note:</strong> In this example the Submit button creates a new game and uploads all the chosen images to Images model.<br />
+                    It saves the reference of cover-image id at imgId field in games model.<br />
+                    It saves the references of game-process-images at games-images model.</p>
 
                 {this.state.uploadedImage && <UploadedImage {...this.state.uploadedImage} />}
-            </div>
+            </div >
         );
     }
 }

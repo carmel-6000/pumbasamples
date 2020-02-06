@@ -56,9 +56,11 @@ export default class MultiImagesHandlerView extends Component {
             body: JSON.stringify(filesData)
         });
 
+        console.log("pRes", pRes);
+
         if (pErr) return console.log("ERR:", pErr);
 
-        let filter = `filter[order]=id DESC&filter[limit]=${Object.keys(filesData).length}`;
+        let filter = `filter[order]=id DESC&filter[limit]=${filesData["imgId"].length}`;
         let [gRes, gErr] = await Auth.superAuthFetch('/api/Images?' + filter);
 
         if (gErr) return console.log("ERR:", gErr);
@@ -80,23 +82,35 @@ export default class MultiImagesHandlerView extends Component {
 
                     <div className="image-input-sample">
                         <MultiImagesHandler
-                            // name="my-multi-images-handler" // some unique name
                             name="imgId" // keyToSaveImgId
                             title="my-images"
                             category="games-images"
-                            // keyToSaveImgId="imgId" // if null: returns the id without saving in model
-                            relatedModelToSaveImgId={{
-                                modelName: "games_images",
-                                keyToSaveNewInstanceId: "gameId"
-                            }}
+                            label="Drop your images"
                             onChange={this.onChange}
-                            disabled={isSubmited} />
+                            disabled={isSubmited}
+
+                            accept=""
+                            maxSize=""
+                            minSize=""
+                            noClick=""
+                            noDrag=""
+                            noKeyBoard=""
+
+                            onDragEnter=""
+                            onDragLeave=""
+                            onDragOver=""
+                            onDrop=""
+                            onDropAccepted=""
+                            onDropRejected=""
+                            onFileDialogCancel=""
+                           />
                     </div>
                 </div>
 
                 <p className="explanation">
                     <strong>Note:</strong> In this example the Submit button uploads all the chosen images to Images model<br />
-                    (without saving a reference image_id in another model like in "Upload image to relative model (by creating a new game)" sample).</p>
+                    (without saving a reference image_id in another model like in "Upload image to relative model (by creating a new game)" sample).<br/>
+                    <strong>Notice:</strong> The MultiImageHandler does not support <em>required</em> prop.</p>
 
                 {!isSubmited ?
                     <button onClick={this.upload} disabled={this.state.isSubmitDisabled}>Submit</button> :
