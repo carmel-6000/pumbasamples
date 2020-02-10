@@ -1,0 +1,26 @@
+[
+	{
+		"filePath": "auth/samples/PasswordInputView.js",
+		"componentName": "PasswordInputView",
+		"route": "password-input",
+		"title": "password Input and verify"
+	},
+	{
+		"filePath": "auth/samples/LoginAsView.js",
+		"componentName": "LoginAsView",
+		"route": "login-as",
+		"title": "Login as another user"
+	},
+	{
+		"filePath": "auth/samples/Login.jsx",
+		"componentName": "Login",
+		"route": "login",
+		"title": "(Login, reset password, registration (not ready yet)"
+	},
+	{
+		"filePath": "fileshandler/samples/FileUploaderView.js",
+		"componentName": "FileUploaderView",
+		"route": "file-uploader",
+		"title": "File Uploader, Image Uploader, Audio Uploader"
+	}
+]
