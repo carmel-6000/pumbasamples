@@ -18,9 +18,27 @@
 		"title": "(Login, reset password, registration (not ready yet)"
 	},
 	{
-		"filePath": "fileshandler/samples/FileUploaderView.js",
+		"filePath": "fileshandler/samples/file-uploader-view/FileUploaderView.js",
 		"componentName": "FileUploaderView",
 		"route": "file-uploader",
 		"title": "File Uploader, Image Uploader, Audio Uploader"
+	},
+	{
+		"filePath": "fileshandler/samples/image-handler-view/ImageHandlerView.js",
+		"componentName": "ImageHandlerView",
+		"route": "image-handler",
+		"title": "Image Handler (the new image uploader)"
+	},
+	{
+		"filePath": "fileshandler/samples/multi-images-handler-view/MultiImagesHandlerView.js",
+		"componentName": "MultiImagesHandlerView",
+		"route": "multi-images-handler",
+		"title": "Multi Images Handler"
+	},
+	{
+		"filePath": "fileshandler/samples/create-game/CreateGame.js",
+		"componentName": "CreateGame",
+		"route": "create-game",
+		"title": "Upload image to relative model (by creating a new game)"
 	}
 ]
