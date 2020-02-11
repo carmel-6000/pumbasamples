@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../auth/Auth';
 import MultiImagesHandler from '../../fileshandler/client/components/multi-images-handler/MultiImagesHandler';
-import PreviewWidget from '../../fileshandler/client/components/PreviewWidget';
 import './MultiImagesHandlerView.scss';
 
 const UploadedImage = (props) => {
@@ -98,6 +97,7 @@ export default class MultiImagesHandlerView extends Component {
                             // noClick=""
                             // noDrag=""
                             // noKeyBoard=""
+                            previewFiles={[0,0]} //[accepted, rejected]
 
                             onDragEnter=""
                             onDragLeave=""
