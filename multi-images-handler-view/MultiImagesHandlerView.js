@@ -88,13 +88,16 @@ export default class MultiImagesHandlerView extends Component {
                             label="Drop your images"
                             onChange={this.onChange}
                             disabled={isSubmited}
+                            
+                            type="image" // image, audio, video, file
+                            // accept="" // Accepting specific file types !mime types
 
-                            accept=""
-                            maxSize=""
-                            minSize=""
-                            noClick=""
-                            noDrag=""
-                            noKeyBoard=""
+                            // maxSize={} //bytes
+                            // minSize={} //bytes
+                            
+                            // noClick=""
+                            // noDrag=""
+                            // noKeyBoard=""
 
                             onDragEnter=""
                             onDragLeave=""
